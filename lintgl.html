@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="theme-color" content="#050505">
+    <title>LINETOGEL VIP</title>
+    
+    <style>
+        /* --- FONTS & RESET --- */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&display=swap');
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #050505;
+            background-image: 
+                radial-gradient(circle at 50% 0%, #1a1400 0%, #050505 60%), /* Glow atas */
+                linear-gradient(to bottom, #050505, #000);
+            color: #fff;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* --- DECORATION (Background Lights) --- */
+        .bg-light {
+            position: fixed;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: rgba(255, 215, 0, 0.05);
+            filter: blur(80px);
+            pointer-events: none;
+            z-index: 0;
+        }
+        .bg-1 { top: -100px; left: -100px; }
+        .bg-2 { bottom: 100px; right: -100px; background: rgba(255, 0, 0, 0.05); }
+
+        /* --- CONTAINER --- */
+        .app-container {
+            position: relative;
+            z-index: 1;
+            padding: 0 15px 100px;
+        }
+
+        /* --- HEADER --- */
+        .header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 40px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .avatar-frame {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            margin-bottom: 15px;
+        }
+        
+        /* Cincin Emas Berputar */
+        .avatar-frame::before {
+            content: '';
+            position: absolute;
+            inset: -5px;
+            border-radius: 50%;
+            background: conic-gradient(from 0deg, #FFD700, #000, #FFD700);
+            animation: spin 4s linear infinite;
+            z-index: -1;
+        }
+
+        .avatar {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #050505;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+        }
+
+        .brand-name {
+            font-size: 24px;
+            font-weight: 900;
+            text-transform: uppercase;
+            background: linear-gradient(to bottom, #FFD700, #FFA500);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.2);
+            letter-spacing: 1px;
+        }
+
+        /* --- BUTTON LOGIN / DAFTAR (SPLASHY) --- */
+        .hero-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .btn-hero {
+            position: relative;
+            padding: 16px 10px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 700;
+            text-transform: uppercase;
+            text-align: center;
+            text-decoration: none;
+            letter-spacing: 1px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            overflow: hidden;
+            transition: transform 0.2s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+        }
+        
+        .btn-hero:active { transform: scale(0.96); }
+
+        .btn-login {
+            background: linear-gradient(135deg, #FFD700 0%, #FF8C00 100%);
+            color: #000;
+            border: none;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+        }
+
+        .btn-daftar {
+            background: transparent;
+            color: #fff;
+            border: 2px solid #fff;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+        }
+
+        /* --- MENU GRID (KIRI KANAN) --- */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .card-item {
+            position: relative;
+            background: linear-gradient(160deg, #1a1a1a 0%, #0f0f0f 100%);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            border-radius: 20px;
+            padding: 20px 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: #fff;
+            height: 140px; /* Tinggi seragam */
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        /* Shine Effect di Card */
+        .card-item::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255,255,255,0.1), transparent);
+            transform: skewX(-25deg);
+            transition: 0.5s;
+        }
+        .card-item:hover::after, .card-item:active::after {
+            left: 150%;
+        }
+
+        .card-item:active {
+            border-color: #FFD700;
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(255, 215, 0, 0.2);
+        }
+
+        .icon-wrapper {
+            width: 50px;
+            height: 50px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .icon-wrapper svg {
+            width: 28px;
+            height: 28px;
+            fill: #fff;
+        }
+
+        .card-title {
+            font-size: 13px;
+            font-weight: 600;
+            text-align: center;
+            z-index: 2;
+        }
+
+        /* Warna Ikon Spesifik */
+        .icon-gold { background: linear-gradient(135deg, #FFD700, #FF8C00); box-shadow: 0 0 15px rgba(255, 215, 0, 0.3); }
+        .icon-blue { background: linear-gradient(135deg, #00c6ff, #0072ff); box-shadow: 0 0 15px rgba(0, 114, 255, 0.3); }
+        .icon-pink { background: linear-gradient(135deg, #f857a6, #ff5858); box-shadow: 0 0 15px rgba(248, 87, 166, 0.3); }
+        .icon-purple { background: linear-gradient(135deg, #667eea, #764ba2); box-shadow: 0 0 15px rgba(118, 75, 162, 0.3); }
+        .icon-green { background: linear-gradient(135deg, #11998e, #38ef7d); box-shadow: 0 0 15px rgba(56, 239, 125, 0.3); }
+        .icon-red { background: linear-gradient(135deg, #ED213A, #93291E); box-shadow: 0 0 15px rgba(237, 33, 58, 0.3); }
+
+
+        /* --- BOTTOM NAVIGATION (FLOATING) --- */
+        .bottom-nav {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            height: 70px;
+            background: rgba(20, 20, 20, 0.95);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            border-radius: 35px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            z-index: 99;
+            padding: 0 10px;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: rgba(255,255,255,0.5);
+            text-decoration: none;
+            font-size: 10px;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .nav-item.active {
+            color: #FFD700;
+        }
+
+        .nav-item svg {
+            width: 24px;
+            height: 24px;
+            fill: currentColor;
+            margin-bottom: 4px;
+        }
+
+        /* Tombol Tengah (VIP) */
+        .nav-center {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #FFD700, #FF8C00);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: -35px; /* Naik ke atas */
+            box-shadow: 0 5px 20px rgba(255, 215, 0, 0.6);
+            position: relative;
+            z-index: 100;
+        }
+        
+        .nav-center svg {
+            fill: #000;
+            width: 30px;
+            height: 30px;
+            margin: 0;
+        }
+
+        /* Animasi Putar Cincin */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Animasi Masuk */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUpAnim 0.6s forwards ease-out;
+        }
+        
+        @keyframes fadeUpAnim {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- CUSTOM SNOWFLAKE STYLING (Optimized) --- */
+        .snowflake {
+            color: #fff;
+            font-size: 1em;
+            font-family: Arial, sans-serif;
+            text-shadow: 0 0 5px #000;
+            background: transparent;
+            opacity: 1;
+        }
+
+        @-webkit-keyframes snowflakes-fall{0%{top:-10%}100%{top:100%}}
+        @-webkit-keyframes snowflakes-shake{0%,100%{-webkit-transform:translateX(0);transform:translateX(0)}50%{-webkit-transform:translateX(80px);transform:translateX(80px)}}
+        @keyframes snowflakes-fall{0%{top:-10%}100%{top:100%}}
+        @keyframes snowflakes-shake{0%,100%{transform:translateX(0)}50%{transform:translateX(80px)}}
+        
+        .snowflake{
+            position:fixed;
+            top:-10%;
+            z-index:9999;
+            -webkit-user-select:none;
+            -moz-user-select:none;
+            -ms-user-select:none;
+            user-select:none;
+            cursor:default;
+            /* Optimasi: pointer-events: none agar gambar tidak menghalangi klik tombol */
+            pointer-events: none;
+            -webkit-animation-name:snowflakes-fall,snowflakes-shake;
+            -webkit-animation-duration:10s,3s;
+            -webkit-animation-timing-function:linear,ease-in-out;
+            -webkit-animation-iteration-count:infinite,infinite;
+            -webkit-animation-play-state:running,running;
+            animation-name:snowflakes-fall,snowflakes-shake;
+            animation-duration:10s,3s;
+            animation-timing-function:linear,ease-in-out;
+            animation-iteration-count:infinite,infinite;
+            animation-play-state:running,running
+        }
+        
+        .snowflake:nth-of-type(0){left:1%;-webkit-animation-delay:0s,0s;animation-delay:0s,0s}
+        .snowflake:nth-of-type(1){left:10%;-webkit-animation-delay:1s,1s;animation-delay:1s,1s}
+        .snowflake:nth-of-type(2){left:20%;-webkit-animation-delay:6s,.5s;animation-delay:6s,.5s}
+        .snowflake:nth-of-type(3){left:30%;-webkit-animation-delay:4s,2s;animation-delay:4s,2s}
+        .snowflake:nth-of-type(4){left:40%;-webkit-animation-delay:2s,2s;animation-delay:2s,2s}
+        .snowflake:nth-of-type(5){left:50%;-webkit-animation-delay:8s,3s;animation-delay:8s,3s}
+        .snowflake:nth-of-type(6){left:60%;-webkit-animation-delay:6s,2s;animation-delay:6s,2s}
+        .snowflake:nth-of-type(7){left:70%;-webkit-animation-delay:2.5s,1s;animation-delay:2.5s,1s}
+        .snowflake:nth-of-type(8){left:80%;-webkit-animation-delay:1s,0s;animation-delay:1s,0s}
+        .snowflake:nth-of-type(9){left:90%;-webkit-animation-delay:3s,1.5s;animation-delay:3s,1.5s}
+        .snowflake:nth-of-type(10){left:25%;-webkit-animation-delay:2s,0s;animation-delay:2s,0s}
+        .snowflake:nth-of-type(11){left:65%;-webkit-animation-delay:4s,2.5s;animation-delay:4s,2.5s}
+
+    </style>
+</head>
+<body>
+
+    <!-- Dekorasi Cahaya Belakang -->
+    <div class="bg-light bg-1"></div>
+    <div class="bg-light bg-2"></div>
+
+    <div class="app-container">
+        
+        <!-- Header -->
+        <header class="header fade-up" style="animation-delay: 0.1s">
+            <div class="avatar-frame">
+                <img src="https://media.linklist.bio/avatars/Euo5SB4PPTQlRrfG790e1WE9krRd4eyzY2xwdEv7.webp" alt="Logo" class="avatar">
+            </div>
+            <div class="brand-name">Linetogel</div>
+        </header>
+
+        <!-- Hero Buttons -->
+        <div class="hero-buttons fade-up" style="animation-delay: 0.2s">
+            <a href="https://line34225.com" class="btn-hero btn-login">LOGIN</a>
+            <a href="https://line35161.com/register" class="btn-hero btn-daftar">DAFTAR</a>
+        </div>
+
+        <!-- Menu Grid -->
+        <div class="menu-grid">
+            
+            <a href="https://dkwl.b-cdn.net/linetogel-kl1" class="card-item fade-up" style="animation-delay: 0.3s">
+                <div class="icon-wrapper icon-gold">
+                    <svg viewBox="0 0 24 24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
+                </div>
+                <span class="card-title">Link Alt 1</span>
+            </a>
+
+            <a href="http://linetogel71.com" class="card-item fade-up" style="animation-delay: 0.35s">
+                <div class="icon-wrapper icon-pink">
+                    <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+                </div>
+                <span class="card-title">Link Alt 2</span>
+            </a>
+
+            <a href="https://rtpslotline626.com/" class="card-item fade-up" style="animation-delay: 0.4s">
+                <div class="icon-wrapper icon-purple">
+                    <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/></svg>
+                </div>
+                <span class="card-title">RTP Live</span>
+            </a>
+
+            <a href="https://line80561.com/promotion" class="card-item fade-up" style="animation-delay: 0.45s">
+                <div class="icon-wrapper icon-red">
+                    <svg viewBox="0 0 24 24"><path d="M21.41 11.58l-9-9C12.05 2.22 11.55 2 11 2H4c-1.1 0-2 .9-2 2v7c0 .55.22 1.05.59 1.42l9 9c.36.36.86.58 1.41.58.55 0 1.05-.22 1.41-.59l7-7c.37-.36.59-.86.59-1.41 0-.55-.23-1.06-.59-1.42z"/></svg>
+                </div>
+                <span class="card-title">Promo</span>
+            </a>
+
+            <a href="https://qrfy.io/p/D3YKLpQqJP" class="card-item fade-up" style="animation-delay: 0.5s">
+                <div class="icon-wrapper icon-green">
+                    <svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14zm-7-2h2v-4h4v-2h-4V9h-2v4H9v2h4z"/></svg>
+                </div>
+                <span class="card-title">Download APK</span>
+            </a>
+
+            <a href="https://lineblog329.com/prediksi-linetogel/" class="card-item fade-up" style="animation-delay: 0.55s">
+                <div class="icon-wrapper icon-blue">
+                    <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+                </div>
+                <span class="card-title">Prediksi</span>
+            </a>
+
+        </div>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav fade-up" style="animation-delay: 0.6s">
+        <a href="https://line34225.com" class="nav-item active">
+            <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+            <span>Home</span>
+        </a>
+        
+        <a href="https://rtpslotline626.com/" class="nav-item">
+            <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/></svg>
+            <span>RTP</span>
+        </a>
+
+        <!-- Center Button (VIP) -->
+        <a href="https://secure.livechatinc.com/customer/action/open_chat?license_id=13376070" class="nav-center">
+            <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+        </a>
+
+        <a href="https://lineblog329.com/prediksi-linetogel/" class="nav-item">
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+            <span>Prediksi</span>
+        </a>
+
+        <a href="https://t.me/Linetogelchannel98_bot" class="nav-item">
+            <svg viewBox="0 0 24 24"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z"/></svg>
+            <span>Telegram</span>
+        </a>
+    </nav>
+
+    <!-- Snowflake Script -->
+    <div class="snowflakes" aria-hidden="true">
+        <div class="snowflake">
+            <img src="https://cdn.areabermain.club/assets/cdn/az6/2026/03/04/20260304/aa3a9ea2457ddd6ddd8d8d988052c347/icon-1.png" height="40px" width="40px;">
+        </div>
+        <div class="snowflake">
+            <img src="https://alximg.b-cdn.net/images/2026/02/15/6d6600c41755d6c22d2ba665c0155f20.gif" height="60px" width="90px;">
+        </div>
+        <div class="snowflake">
+            <img src="https://cdn.areabermain.club/assets/cdn/az6/2026/03/04/20260304/6201103d8061f1103162bc831aebfe62/icon-3.png" height="40px" width="40px;">
+        </div>
+        <div class="snowflake">
+            <img src="https://cdn.areabermain.club/assets/cdn/az6/2026/03/04/20260304/2e52cc98781a742dd6a7bcf5b13bbbbb/icon-4.png" height="50px" width="50px;">
+        </div>
+        <div class="snowflake">
+            <img src="https://cdn.areabermain.club/assets/cdn/az6/2026/03/04/20260304/c429ebdab81dfcd0a395fa99c9b319f1/icon-5.png" height="50px" width="50px;">
+        </div>
+        <div class="snowflake">
+            <img src="https://cdn.areabermain.club/assets/cdn/az6/2026/03/04/20260304/12ae84a9e25001e4acef961c28d174a7/icon-2.png" height="50px" width="50px;">
+        </div>
+        <div class="snowflake">
+            <img src="https://cdn.areabermain.club/assets/cdn/az6/2026/03/04/20260304/314b2d5eed71cc63295f89de8a27427b/icon-6.png" height="60px" width="90px;">
+        </div>
+    </div>
+
+</body>
+</html>
